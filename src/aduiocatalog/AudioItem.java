@@ -1,18 +1,31 @@
 package aduiocatalog;
 
-public abstract class AudioItem {
-    private final String title;
-    private final String genre;
-    private final int duration;
-    private final String artist;
-    private final int year;
+public class AudioItem {
+    private static int NEXT_ID = 1;
 
-    public AudioItem(String title, String genre, int duration, String artist, int year) {
+    private int id;
+    private String title;
+    private String genre;
+    private int duration;
+    private String artist;
+    private int year;
+    private AudioType category;
+
+    public AudioItem(String title, String genre, int duration, String artist, int year, AudioType category) {
+        this.id = NEXT_ID++;
         this.title = title;
         this.genre = genre;
         this.duration = duration;
         this.artist = artist;
         this.year = year;
+        this.category = category;
+    }
+
+    public AudioItem() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -35,11 +48,21 @@ public abstract class AudioItem {
         return year;
     }
 
-    public abstract String getCategory();
+    public AudioType getCategory() {
+        return category;
+    }
+
+    public static void setNextId(int nextId) {
+        NEXT_ID = nextId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
-        return String.format("[%s] Title: %s | Author: %s | Genre: %s | Year: %d | Duration: %ds", getCategory(), title, artist, genre, year, duration);
+        return String.format("ID: %d | [%s] Title: %s | Author: %s | Genre: %s | Year: %d | Duration: %ds", id, getCategory(), title, artist, genre, year, duration);
     }
 
 }

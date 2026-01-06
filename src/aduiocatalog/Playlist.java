@@ -4,39 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
-    private final String name;
-    private final List<AudioItem> items;
+    private String name;
+    private List<Integer> itemIds;
 
     public Playlist(String name) {
         this.name = name;
-        this.items = new ArrayList<AudioItem>();
+        this.itemIds = new ArrayList<>();
+    }
+
+    public Playlist() {
+        this.itemIds = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    public List<AudioItem> getItems() {
-        return items;
+    public List<Integer> getItemIds() {
+        return itemIds;
     }
 
-    public void add(AudioItem item) {
-        items.add(item);
+    public void addById(int id) {
+        itemIds.add(id);
     }
 
-    public boolean remove(String title) {
-        return items.removeIf(i -> i.getTitle().equalsIgnoreCase(title));
-    }
-
-    public int getDuration() {
-        return items.stream().mapToInt(AudioItem::getDuration).sum();
+    public boolean removeById(int id) {
+        return itemIds.removeIf(x -> x == id);
     }
 
     public int getSize() {
-        return items.size();
+        return itemIds.size();
     }
 
+    @Override
     public String toString() {
-        return String.format("Playlist: %s (%d items, total %ds)", name, getSize(), getDuration());
+        return String.format("Playlist: %s (%d items)", name, getSize());
     }
 }
